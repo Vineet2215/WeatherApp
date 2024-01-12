@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+    <ImageView
+        android:id="@+id/idIVBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/day"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idRLHome"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/idPBLoading"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:id="@+id/idLLEdt">
+
+            <ImageView
+                android:id="@+id/idIVmicSearch"
+                android:layout_width="1dp"
+                android:layout_height="33dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="2.5"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="mic"
+                android:scaleType="fitCenter"
+                android:src="@drawable/mic_icon" />
+
+            <EditText
+                android:id="@+id/idEdtCity"
+                android:layout_width="240dp"
+                android:layout_height="45dp"
+                android:hint="Enter City Name"
+                android:inputType="textCapCharacters"
+                android:maxLength="30"
+                android:textAllCaps="true"
+                android:textColorHint="@color/textColor"
+                android:paddingStart="45dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/corner_rounded"
+                />
+
+
+            <ImageView
+                android:id="@+id/idIVSearch"
+                android:layout_width="32dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1.3"
+                android:src="@drawable/baseline_search_24"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/idLLEdt"
+            android:id="@+id/idTVCityName"
+            android:text="City Name"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:padding="5dp"
+            />
+
+        <TextView
+            android:id="@+id/idTVTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVCityName"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="60dp" />
+
+
+        <ImageView
+            android:id="@+id/idIVIcon"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_below="@id/idTVTemperature"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="centerCrop"
+             />
+
+        <LinearLayout
+            android:id="@+id/IDLLUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/idIVIcon"
+            android:layout_marginTop="2dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Updated at"
+                android:textColor="@color/white"
+                android:letterSpacing="0.1"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="135dp"/>
+
+            <TextView
+                android:id="@+id/IDTVUpdated_At"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
+                android:letterSpacing="0.1"
+                android:text=""
+                android:textColor="@color/white"
+                android:layout_marginLeft="120dp"
+                android:textAllCaps="true"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/idTVCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/IDLLUpdate"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Condition"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/IDTVWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVCondition"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="Today's Weather Forecast"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/IDTVWeather"
+            android:id="@+id/idRVWeather"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <TextView
+            android:id="@+id/IDTVWeatherDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idRVWeather"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="3dp"
+            android:textSize="20sp"
+            android:text="Weather Details"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/IDIVNext"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/idRVWeather"
+            android:layout_marginLeft="310dp"
+            android:layout_marginBottom="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/next" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/IDTVWeatherDetails"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/idCVFeelsLike"
+                        android:layout_width="150dp"
+                        android:layout_height="140dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="14dp"
+                       android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        app:cardBackgroundColor="@color/cardDayColor"
+                        app:cardCornerRadius="12dp">
+
+                        <LinearLayout
+                            android:layout_width="187dp"
+                            android:layout_height="150dp"
+                            android:layout_marginLeft="5dp"
+                            android:orientation="vertical"
+                            android:padding="25dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/thermometer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:text="Feels Like"
+                                android:textColor="@color/textColor"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/IDTVFeelsLike"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="23sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/idCVHumidity"
+                        android:layout_width="150dp"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        app:cardBackgroundColor="@color/cardDayColor"
+                        app:cardCornerRadius="12dp">
+
+                        <LinearLayout
+                            android:layout_width="187dp"
+                            android:layout_height="150dp"
+                            android:orientation="vertical"
+                            android:padding="25dp">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/humidity"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:text="Humidity"
+                                android:textColor="@color/textColor"
+                                android:textSize="17sp"
+                                />
+                            <TextView
+                                android:id="@+id/IDTVHumidity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="39dp"
+                                android:textColor="@color/white"
+                                android:textSize="23sp"
+                                android:text=""/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/idCVWind"
+                        android:layout_width="150dp"
+                        android:layout_height="140dp"
+                        android:gravity="center"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        app:cardBackgroundColor="@color/cardDayColor"
+                        app:cardCornerRadius="12dp">
+
+                        <LinearLayout
+                            android:layout_width="187dp"
+                            android:layout_height="150dp"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="5dp"
+                            android:padding="25dp">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/wind"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:text="Wind"
+                                android:textColor="@color/textColor"
+                                android:textSize="17sp"
+                                />
+                            <TextView
+                                android:id="@+id/IDTVWind"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:textSize="23sp"
+                                android:textColor="@color/white"
+                                android:text=""/>
+
+                         />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/idCVPressure"
+                        android:layout_width="150dp"
+                        android:layout_height="140dp"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        app:cardBackgroundColor="@color/cardDayColor"
+                        app:cardCornerRadius="12dp">
+
+                        <LinearLayout
+                            android:layout_width="187dp"
+                            android:layout_height="150dp"
+                            android:layout_marginStart="2dp"
+                            android:orientation="vertical"
+                            android:padding="25dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/air_pressure"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:text="Presssure"
+                                android:textColor="@color/textColor"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/IDTVAirPressure"
+                                android:layout_width="wrap_content"
+                                android:layout_height="39dp"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="23sp" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

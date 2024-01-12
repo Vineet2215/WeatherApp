@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:padding="10dp"
+        android:background="@drawable/rounded_rectangle">
+      >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/IDTVSeven_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="85dp"
+                android:text="2023-01-01"
+                android:textColor="@color/white"
+                android:letterSpacing="0.05"
+                android:textSize="45dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/IDIVtemp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/temp1" />
+
+
+            <TextView
+                android:id="@+id/IDTVSeven_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="35dp"
+                android:text="21°"
+                android:textColor="@color/textColor"
+                android:textSize="23sp" />
+
+
+            <ImageView
+                android:id="@+id/IDIVSeven_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/cloudy_2" />
+
+
+            <ImageView
+                android:id="@+id/idIVWIND"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="155dp"
+                android:src="@drawable/wind_3" />
+
+
+            <TextView
+                android:id="@+id/IDTVSeven_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="175dp"
+                android:text="12km/h"
+                android:textColor="@color/textColor"
+                android:textSize="23dp" />
+
+
+            <ImageView
+                android:id="@+id/idIVUV"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="210dp"
+                android:layout_marginTop="155dp"
+                android:src="@drawable/uv2" />
+
+            <TextView
+                android:id="@+id/IDTVSeven_uv"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="180dp"
+                android:text="4.0"
+                android:textColor="@color/textColor"
+                android:textSize="23sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
