@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-public class SplashActivity extends AppCompatActivity {
-
-
+public class SplashActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void splashScreen() {
-        int SPLASH_TIME = 3000;
+        int SPLASH_TIME = 2000;
         new Handler().postDelayed(() -> {
 //            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);

@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -49,32 +51,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener
+{
 
     private int isDay=1;
     private RelativeLayout homeRL;
     private ProgressBar loadingPB;
     private TextView cityNameTV,temperatureTV,conditionTV ,updated_at_TV,feelsLikeTV,humidityTV,windTV,airPressureTV,windSevenTV, temperatureSevenTV,daySevenTV,uvSevenTV;
     private RecyclerView weatherRV;
-    private RecyclerView sevenDaysRV;
 
 
     private EditText cityEdt;
-    private ImageView backIV,iconIV,searchIV,micSearchIV,nextIV;
+    private ImageView backIV,iconIV,searchIV,micSearchIV,nextIV,locIV;
 
     private ArrayList <WeatherModal>weatherModalArrayList;
-    private ArrayList<ForecastItems> forecastItemsArrayList;
     private WeatherAdopter weatherAdopter;
-    private ForecastActivity forecastActivity;
-
-
-
     private LocationManager locationManager;
     private  int PERMISSION_CODE = 1;
     private final int REQUEST_CODE_EXTRA_INPUT = 101;
     private String cityName,temperature;
-
     private CardView feelsLikeCV,humidityCV,windCV,pressureCV;
 
 
@@ -110,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
         iconIV = findViewById(R.id.idIVIcon);
         searchIV = findViewById(R.id.idIVSearch);
         micSearchIV=findViewById(R.id.idIVmicSearch);
-
-//        sevenDaysRV = findViewById(R.id.idRVNextSevenDays);
-
+        locIV = findViewById(R.id.idIVLoc);
 
         // Card View
         feelsLikeCV = findViewById(R.id.idCVFeelsLike);
@@ -124,16 +117,27 @@ public class MainActivity extends AppCompatActivity {
 
         weatherModalArrayList = new ArrayList<>();
 
-
-
         weatherAdopter = new WeatherAdopter(this,weatherModalArrayList);
         weatherRV.setAdapter(weatherAdopter);
+
 // ------------------------------------------------------------------------------------------------------------
 
         nextIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openMainActivity2();
+            }
+        });
+// ----------------------------------------------------------------------------------------------------------------
+        locIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if the location updates are already requested
+                if (locationManager != null) {
+                    locationManager.removeUpdates(MainActivity.this);
+                }
+                // Request location updates again
+                getLocation();
             }
         });
 
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //---------------------------------------------
-    // Next Seven Days Button
+    // Next 3 Days Button
     public  void openMainActivity2()
     {
         Intent intent = new Intent(MainActivity.this,MainActivity2.class);
@@ -197,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("temp",temperature);
         startActivity(intent);
     }
+
+    //==============================================================
+
 
 
     //----------------------------------
@@ -233,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // to get the city Name -->
+    // To get the city Name -->
 
     private String getCityName(double longitude, double latitude) {
         String cityName = "Not found";
@@ -252,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                         cityName = city;
                     } else {
                         Log.d("TAG", "City Not Found");
-                        Toast.makeText(this, "User City not found ..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "City not found", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -282,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
                 // in below line we are making our card
                 // view visible after we get all the data.
                homeRL.setVisibility(View.VISIBLE);
-//               Log.i("test1", "xya");
 
 //                forecastItemsArrayList.clear();
                  weatherModalArrayList.clear();
@@ -299,13 +305,16 @@ public class MainActivity extends AppCompatActivity {
                     String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
                     String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
 
-                    // weather Details
+                    // Weather Details
                     String feels_like = response.getJSONObject("current").getString("feelslike_c");
                     String humidity = response.getJSONObject("current").getString("humidity");
                     String wind_1 = response.getJSONObject("current").getString("wind_kph");
                     String air_pressure = response.getJSONObject("current").getString("pressure_mb");
 
-
+                    // From Notification Class
+                    Notification notification = new Notification();
+                    Log.d(temperature, "onResponse: " );
+                    Notification.createNotificationChannel(MainActivity.this,temperature,wind_1,humidity);
 
                     // we are using picasso to load the image from url.
                     Picasso.get().load("https:".concat(conditionIcon)).into(iconIV);  // Loading our image
@@ -330,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
                         // its day [ For Image ]
                         Picasso.get().load("android.resource://" + getPackageName() + "/" + drawableDayId).into(backIV);
 
-                        // [ For Background Color Of CardView]
+                        // [ For Background Color of CardView]
                         int colorDay = getResources().getColor(R.color.cardDayColor);
                         feelsLikeCV.setCardBackgroundColor(colorDay);
                         humidityCV.setCardBackgroundColor(colorDay);
@@ -344,13 +353,12 @@ public class MainActivity extends AppCompatActivity {
                         // its night
                         Picasso.get().load("android.resource://" + getPackageName() + "/" + drawableNightId).into(backIV);
 
-                        // [ For Background Color Of CardView]
+                        // [ For Background Color of CardView]
                         int colorNight = getResources().getColor(R.color.cardNightColor);
                         feelsLikeCV.setCardBackgroundColor(colorNight);
                         humidityCV.setCardBackgroundColor(colorNight);
                         windCV.setCardBackgroundColor(colorNight);
                         pressureCV.setCardBackgroundColor(colorNight);
-
                     }
 
 
@@ -420,4 +428,74 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
 
     }
+
+
+
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+
+            // Check if GPS is enabled
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                // GPS provider consumes more battery but gives more accuracy
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 1000, this);
+            } else {
+                // If GPS is not enabled, prompt the user to enable it
+                buildAlertMessageNoGps();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        Toast.makeText(this, "Current Co-Ordinate: "+location.getLatitude() + "," + location.getLongitude(), Toast.LENGTH_SHORT).show();
+        try {
+            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+            assert addresses != null;
+            if (!addresses.isEmpty()) {
+                String address = addresses.get(0).getLocality();
+                getWeatherInfo(address);
+            } else {
+                // Handle case when locality is not available
+                Toast.makeText(this, "Locality not found", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            // Log or display an error message if something goes wrong
+            Log.e("LocationError", "Error getting locality: " + e.getMessage());
+            Toast.makeText(this, "Error getting locality", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    private void buildAlertMessageNoGps()
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your Location [GPS] seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        // Open the location settings to enable GPS
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 }

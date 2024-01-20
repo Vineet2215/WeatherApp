@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/idIVprevious"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="13dp"
@@ -58,7 +58,7 @@
         android:layout_marginLeft="10dp"
         android:text="Next 3 Days Forecast"
         android:textSize="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor"
         android:textStyle="bold"
         />
 
